@@ -36,7 +36,9 @@ return {
 					},
 				},
 			}
+			lsp.gdscript.setup({})
 		end
+
 
 	},
 }
