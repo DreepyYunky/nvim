@@ -3,7 +3,8 @@ return {
 	config = function ()
 		local null = require("null-ls")
 		null.setup({
-			null.builtins.formatting.clangd
+			null.builtins.formatting.clang_format,
+			null.builtins.formatting.stylua
 		})
 	end
 }
