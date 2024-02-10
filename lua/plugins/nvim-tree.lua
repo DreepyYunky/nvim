@@ -1,6 +1,3 @@
--- Only addinhg this because I want try it out.
--- I've tried nvim-tree and oil, but not neotree.
-
 return {
 	"nvim-tree/nvim-tree.lua",
 	dependencies = {
