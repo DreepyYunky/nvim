@@ -36,9 +36,13 @@ return {
 					},
 				},
 			}
-			lsp.gdscript.setup({})
+
+			lsp.gdscript.setup {
+				force_setup = true,
+				cmd = {'ncat', '127.0.0.1', '6008'}, -- the important trick for Windows!
+				root_dir = require('lspconfig.util').root_pattern('project.godot', '.git'),
+    				filetypes = {'gd', 'gdscript', 'gdscript3' }
+			}
 		end
-
-
 	},
 }

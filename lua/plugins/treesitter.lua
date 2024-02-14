@@ -9,5 +9,6 @@ return {
 			highlight = {enabled = true},
 			indent = {enabled = true},
 		})
+		require("nvim-treesitter.install").compilers = {"gcc"}
 	end
 }
