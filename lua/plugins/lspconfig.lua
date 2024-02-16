@@ -9,10 +9,26 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = false,
-		opts = {
+		--[[ opts = {
 			auto_install = true,
 			ensure_installed = { "lua_ls", "clangd", "ols" },
-		},
+		}, ]]
+		config = function()
+			local servers = { "lua_ls", "clangd", "ols" }
+			require("mason-lspconfig").setup({ auto_install = true, ensure_installed = servers })
+			local mason_lspconfig = require 'mason-lspconfig'
+
+			mason_lspconfig.setup_handlers {
+				function(server_name)
+					require('lspconfig')[server_name].setup {
+						capabilities = capabilities,
+						on_attach = on_attach,
+						settings = servers[server_name],
+						filetypes = (servers[server_name] or {}).filetypes,
+					}
+				end,
+			}
+		end
 	},
 	{
 		"neovim/nvim-lspconfig",
