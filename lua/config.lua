@@ -1,8 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.cmd("set number")
---vim.cmd("colorscheme habamax")
---
+vim.wo.number = true
 
 -- set the terminal to PowerShell
 
