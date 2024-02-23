@@ -17,7 +17,7 @@ return {
 			local servers = { "lua_ls", "clangd", "ols" }
 			require("mason-lspconfig").setup({ auto_install = true, ensure_installed = servers })
 			local mason_lspconfig = require 'mason-lspconfig'
-
+			local capabilities = require("cmp_nvim_lsp").capabilities
 			mason_lspconfig.setup_handlers {
 				function(server_name)
 					require('lspconfig')[server_name].setup {
@@ -57,7 +57,9 @@ return {
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 				vim.diagnostic.config({
-					virtual_text = true,
+					virtual_text = {
+						prefix = "●",
+					},
 					signs = true,
 					underline = true,
 					update_in_insert = false,
