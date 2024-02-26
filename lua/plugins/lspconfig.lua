@@ -17,7 +17,7 @@ return {
 			local servers = { "lua_ls", "clangd", "ols" }
 			require("mason-lspconfig").setup({ auto_install = true, ensure_installed = servers })
 			local mason_lspconfig = require 'mason-lspconfig'
-			local capabilities = require("cmp_nvim_lsp").capabilities
+
 			mason_lspconfig.setup_handlers {
 				function(server_name)
 					require('lspconfig')[server_name].setup {
@@ -42,8 +42,16 @@ return {
 			vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>r", vim.lsp.buf.references, {})
 			vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, {})
-			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {})
-
+			lsp.lua_ls.setup {
+				settings = {
+					Lua = {
+						diagnostics = {
+							-- Get the language server to recognize the `vim` global
+							globals = { 'vim' },
+						},
+					},
+				},
+			}
 
 			lsp.gdscript.setup {
 				force_setup = true,
@@ -52,19 +60,48 @@ return {
 				filetypes = { 'gd', 'gdscript', 'gdscript3' }
 			}
 			lsp.ols.setup {}
-			local signs = { Error = "", Warn = "", Hint = "󰌵", Info = "" }
-			for type, icon in pairs(signs) do
-				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-				vim.diagnostic.config({
-					virtual_text = {
-						prefix = "●",
-					},
-					signs = true,
-					underline = true,
-					update_in_insert = false,
-					severity_sort = false,
-				})
+			--[[ local M = {}
+			M.icons = {
+				Class = " ",
+				Color = " ",
+				Constant = " ",
+				Constructor = " ",
+				Enum = " ",
+				EnumMember = " ",
+				Field = "󰄶 ",
+				File = " ",
+				Folder = " ",
+				Function = " ",
+				Interface = "󰜰",
+				Keyword = "󰌆 ",
+				Method = "ƒ ",
+				Module = "󰏗 ",
+				Property = " ",
+				Snippet = "󰘍 ",
+				Struct = " ",
+				Text = " ",
+				Unit = " ",
+				Value = "󰎠 ",
+				Variable = " ",
+			}
+			function M.setup()
+				local kinds = vim.lsp.protocol.CompletionItemKind
+				for i, kind in ipairs(kinds) do
+					kinds[i] = M.icons[kind] or kind
+				end
+			end
+
+			return M ]]
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "●"
+				}
+			})
+			local symbols = { Error = "󰅙", Info = "󰋼", Hint = "󰌵", Warn = "" }
+
+			for name, icon in pairs(symbols) do
+				local hl = "DiagnosticSign" .. name
+				vim.fn.sign_define(hl, { text = icon, numhl = hl, texthl = hl })
 			end
 		end
 	},
