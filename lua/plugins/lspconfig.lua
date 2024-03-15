@@ -42,6 +42,8 @@ return {
 			vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, {})
 			vim.keymap.set("n", "<leader>r", vim.lsp.buf.references, {})
 			vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, {})
+			vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, {})
+			if vim.lsp.buf.fomat then vim.notify("Formatted!") end
 			lsp.lua_ls.setup {
 				settings = {
 					Lua = {
