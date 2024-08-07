@@ -10,7 +10,7 @@ return {
 			-- Add languages to be installed here that you want installed for treesitter
 			ensure_installed = { 'c', 'cpp', 'typescript', 'vimdoc', 'vim', 'bash' },
 			highlight = {enable =true},
-			indent = {enable = false},
+			indent = {enable = true},
 			-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
 		}
 	end
